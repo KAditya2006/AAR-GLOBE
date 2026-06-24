@@ -30,6 +30,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Security Middlewares
 app.use(helmet({
@@ -46,13 +47,34 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Allowed Origins
-const allowedOrigins = process.env.ALLOWED_ORIGINS 
-  ? process.env.ALLOWED_ORIGINS.split(',') 
-  : ['http://localhost:5000'];
+// Keep production domains in ALLOWED_ORIGINS, comma-separated.
+// Render also exposes RENDER_EXTERNAL_URL, so include it when available.
+const allowedOrigins = [
+  'http://localhost:5000',
+  'http://127.0.0.1:5000',
+  process.env.RENDER_EXTERNAL_URL,
+  process.env.FRONTEND_URL,
+  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [])
+]
+  .filter(Boolean)
+  .map(origin => origin.trim().replace(/\/$/, ''));
+
+const isAllowedOrigin = (origin = '') => {
+  const normalizedOrigin = origin.replace(/\/$/, '');
+  if (!normalizedOrigin) return true;
+  if (allowedOrigins.includes(normalizedOrigin)) return true;
+
+  try {
+    const { hostname, protocol } = new URL(normalizedOrigin);
+    return protocol === 'https:' && hostname.endsWith('.onrender.com');
+  } catch (err) {
+    return false;
+  }
+};
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (isAllowedOrigin(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
