@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAR GLOBE | Admin Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="admin-menu-toggle" id="admin-menu-toggle" aria-label="Open admin menu" aria-controls="admin-sidebar" aria-expanded="false">
+    <i data-lucide="menu"></i>
+  </button>
+  <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+  <div class="login-overlay" id="login-screen">
+    <div class="login-card">
+      <div class="logo">
+        <img src="../assets/aarglobe-logo.png" alt="AAR GLOBE logo" class="admin-login-logo">
+        <span>AAR GLOBE Admin</span>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" required placeholder="admin@example.com">
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required>
+        </div>
+        <div class="error-msg" id="login-error"></div>
+        <button type="submit" class="btn btn-primary" id="login-btn">Login <i data-lucide="log-in"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="dashboard" id="dashboard-screen" style="display:none">
+    <aside class="sidebar" id="admin-sidebar" aria-label="Admin navigation">
+      <div class="sidebar-brand"><img src="../assets/aarglobe-logo.png" alt="AAR GLOBE logo"><span>AAR GLOBE</span></div>
+      <nav class="sidebar-nav">
+        <a href="#" class="sidebar-link active" data-tab="dashboard" title="Dashboard"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="#" class="sidebar-link" data-tab="companies" title="Companies"><i data-lucide="building-2"></i> Companies</a>
+        <a href="#" class="sidebar-link" data-tab="banners" title="Banners"><i data-lucide="images"></i> Banners</a>
+        <a href="#" class="sidebar-link" data-tab="products" title="Products"><i data-lucide="package"></i> Products</a>
+        <a href="#" class="sidebar-link" data-tab="services" title="Services"><i data-lucide="settings"></i> Services</a>
+        <a href="#" class="sidebar-link" data-tab="requests" title="Requests"><i data-lucide="inbox"></i> Requests</a>
+        <a href="#" class="sidebar-link" data-tab="settings" title="Settings"><i data-lucide="sliders-horizontal"></i> Settings</a>
+        <a href="#" class="sidebar-link" data-tab="password" title="Password"><i data-lucide="key-round"></i> Password</a>
+        <a href="#" class="sidebar-link" data-tab="analytics" title="Analytics"><i data-lucide="bar-chart-3"></i> Analytics</a>
+        <a href="#" class="sidebar-link" data-tab="activity" title="Activity"><i data-lucide="history"></i> Activity</a>
+        <a href="#" id="logout-btn" title="Logout"><i data-lucide="log-out"></i> Logout</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="global-topbar">
+        <div>
+          <span class="global-kicker">Business Command Center</span>
+          <h1>AAR GLOBE Admin</h1>
+        </div>
+        <div class="global-actions">
+          <label class="sr-only" for="global-admin-search">Search dashboard</label>
+          <div class="global-search">
+            <i data-lucide="search"></i>
+            <input id="global-admin-search" type="search" placeholder="Search modules, requests, products">
+          </div>
+          <button class="btn btn-icon" type="button" title="Notifications"><i data-lucide="bell"></i></button>
+          <button class="admin-profile" type="button" title="Admin profile">
+            <span><img src="../assets/aarglobe-logo.png" alt=""></span>
+            <small>Admin</small>
+          </button>
+        </div>
+      </header>
+
+      <div class="tab-content active" id="tab-dashboard">
+        <header class="topbar"><div><span class="section-kicker">Overview</span><h2>Dashboard</h2></div></header>
+        <div class="dashboard-hero">
+          <div>
+            <span class="section-kicker">Today at a glance</span>
+            <h2>Run AAR GLOBE with clarity.</h2>
+            <p>Track requests, products, services, and growth from one premium workspace.</p>
+          </div>
+          <div class="hero-pulse">
+            <i data-lucide="activity"></i>
+            <span>Live</span>
+          </div>
+        </div>
+        <div class="admin-form-card dashboard-panel">
+          <div class="stats-grid" id="dashboard-cards"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-companies">
+        <header class="topbar"><div><span class="section-kicker">Brand Library</span><h2>Companies</h2></div></header>
+        <div class="admin-form-card">
+          <h3 id="company-form-title"><i data-lucide="plus-circle"></i> Add Company</h3>
+          <form id="company-form" class="admin-form">
+            <input type="hidden" id="company-edit-id">
+            <div class="form-row">
+              <div class="form-group"><label>Name</label><input type="text" id="company-name" required></div>
+              <div class="form-group">
+                <label>Company Logo</label>
+                <input type="file" id="company-logo-file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+                <input type="hidden" id="company-logo">
+                <img id="company-logo-preview" class="image-preview" alt="Company logo preview">
+              </div>
+              <div class="form-group inline-check"><input type="checkbox" id="company-active" checked><label for="company-active">Active</label></div>
+            </div>
+            <div class="form-row">
+              <button type="submit" class="btn btn-primary" id="company-submit-btn">Save Company <i data-lucide="save"></i></button>
+              <button type="button" class="btn btn-secondary" id="company-cancel-btn" style="display:none">Cancel</button>
+            </div>
+          </form>
+        </div>
+        <div class="table-container">
+          <div class="company-card-grid" id="companies-list"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-banners">
+        <header class="topbar"><div><span class="section-kicker">Homepage Content</span><h2>Banners</h2></div></header>
+        <div class="admin-form-card">
+          <h3 id="banner-form-title"><i data-lucide="plus-circle"></i> Add Banner</h3>
+          <form id="banner-form" class="admin-form">
+            <input type="hidden" id="banner-edit-id">
+            <input type="hidden" id="banner-image">
+            <div class="form-row">
+              <div class="form-group"><label>Title</label><input type="text" id="banner-title" required></div>
+              <div class="form-group"><label>Subtitle</label><input type="text" id="banner-subtitle"></div>
+              <div class="form-group inline-check"><input type="checkbox" id="banner-active" checked><label for="banner-active">Active</label></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Banner Image</label>
+                <input type="file" id="banner-image-file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+                <img id="banner-image-preview" class="image-preview banner-preview" alt="Banner image preview">
+              </div>
+            </div>
+            <div class="form-row">
+              <button type="submit" class="btn btn-primary" id="banner-submit-btn">Save Banner <i data-lucide="save"></i></button>
+              <button type="button" class="btn btn-secondary" id="banner-cancel-btn" style="display:none">Cancel</button>
+            </div>
+          </form>
+        </div>
+        <div class="table-container">
+          <table class="orders-table">
+            <thead><tr><th>Image</th><th>Title</th><th>Subtitle</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="banners-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-products">
+        <header class="topbar"><div><span class="section-kicker">Inventory Studio</span><h2>Products</h2></div></header>
+        <div class="admin-form-card">
+          <h3 id="product-form-title"><i data-lucide="plus-circle"></i> Add Product</h3>
+          <form id="add-product-form" class="admin-form">
+            <input type="hidden" id="prod-edit-id">
+            <div class="form-row">
+              <div class="form-group"><label>Name</label><input type="text" id="prod-name" required></div>
+              <div class="form-group">
+                <label>Company</label>
+                <input type="text" id="prod-company-search" list="company-options" required placeholder="Search company...">
+                <input type="hidden" id="prod-company">
+                <datalist id="company-options"></datalist>
+              </div>
+              <div class="form-group"><label>Category</label><input type="text" id="prod-category" required></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Price</label><input type="number" id="prod-price" min="0" required></div>
+              <div class="form-group">
+                <label>Product Image</label>
+                <input type="file" id="prod-image-file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+                <input type="hidden" id="prod-image">
+                <img id="prod-image-preview" class="image-preview" alt="Product image preview">
+              </div>
+              <div class="form-group"><label>Description</label><input type="text" id="prod-desc"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group inline-check"><input type="checkbox" id="prod-available" checked><label for="prod-available">Available</label></div>
+              <div class="form-group inline-check"><input type="checkbox" id="prod-bestseller"><label for="prod-bestseller">Best Seller</label></div>
+              <div class="form-group form-actions">
+                <button type="submit" class="btn btn-primary" id="prod-submit-btn">Save Product <i data-lucide="save"></i></button>
+                <button type="button" class="btn btn-secondary" id="prod-cancel-btn" style="display:none">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modern-toolbar">
+          <div class="toolbar-stat"><span>Total Products</span><strong id="products-stat-total">0</strong></div>
+          <div class="toolbar-stat"><span>Available</span><strong id="products-stat-available">0</strong></div>
+          <div class="toolbar-stat"><span>Best Sellers</span><strong id="products-stat-best">0</strong></div>
+        </div>
+        <div class="modern-card-grid product-management-grid" id="products-card-grid"></div>
+        <div class="table-container">
+          <table class="orders-table">
+            <thead><tr><th>Name</th><th>Company</th><th>Category</th><th>Price</th><th>Available</th><th>Best Seller</th><th>Actions</th></tr></thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-services">
+        <header class="topbar"><div><span class="section-kicker">Service Catalog</span><h2>Services</h2></div></header>
+        <div class="admin-form-card">
+          <h3 id="service-form-title"><i data-lucide="plus-circle"></i> Add Service</h3>
+          <form id="add-service-form" class="admin-form">
+            <input type="hidden" id="svc-edit-id">
+            <div class="form-row">
+              <div class="form-group"><label>Name</label><input type="text" id="svc-name" required></div>
+              <div class="form-group"><label>Type</label><select id="svc-type" required><option value="repair">Repair</option><option value="online">Online</option></select></div>
+              <div class="form-group"><label>Price</label><input type="number" id="svc-price" min="0" required></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Description</label><input type="text" id="svc-desc"></div>
+              <div class="form-group inline-check"><input type="checkbox" id="svc-available" checked><label for="svc-available">Available</label></div>
+              <div class="form-group form-actions">
+                <button type="submit" class="btn btn-primary" id="svc-submit-btn">Save Service <i data-lucide="save"></i></button>
+                <button type="button" class="btn btn-secondary" id="svc-cancel-btn" style="display:none">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="service-board" id="services-card-grid"></div>
+        <div class="table-container">
+          <table class="orders-table">
+            <thead><tr><th>Name</th><th>Type</th><th>Price</th><th>Description</th><th>Available</th><th>Actions</th></tr></thead>
+            <tbody id="services-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-requests">
+        <header class="topbar">
+          <div><span class="section-kicker">Customer Pipeline</span><h2>Requests</h2></div>
+          <div class="topbar-actions">
+            <label class="sr-only" for="search-phone">Search requests by name or phone</label>
+            <input type="text" id="search-phone" placeholder="Search name or phone" class="search-input">
+            <select id="filter-type" class="filter-select"><option value="all">All Types</option><option value="product">Products</option><option value="repair">Repairs</option><option value="service">Services</option></select>
+            <select id="filter-status" class="filter-select"><option value="all">All Statuses</option><option value="New">New</option><option value="Contacted">Contacted</option><option value="Confirmed">Confirmed</option><option value="Completed">Completed</option><option value="Cancelled">Cancelled</option></select>
+            <button id="refresh-btn" class="btn btn-icon" title="Refresh"><i data-lucide="refresh-cw"></i></button>
+          </div>
+        </header>
+        <div class="request-card-grid" id="requests-card-grid"></div>
+        <div class="table-container">
+          <table class="orders-table">
+            <thead><tr><th>Customer Name</th><th>Phone</th><th>Item</th><th>Status</th><th>Last Contact</th><th>Next Follow Up</th><th>Actions</th></tr></thead>
+            <tbody id="orders-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-settings">
+        <header class="topbar"><div><span class="section-kicker">Configuration</span><h2>Settings</h2></div></header>
+        <div class="admin-form-card">
+          <form id="settings-form" class="admin-form">
+            <div class="form-row">
+              <div class="form-group"><label>Shop Name</label><input type="text" id="set-shopName"></div>
+              <div class="form-group"><label>Phone Number</label><input type="text" id="set-phoneNumber"></div>
+              <div class="form-group"><label>WhatsApp Number</label><input type="text" id="set-whatsappNumber"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Address</label><input type="text" id="set-address"></div>
+              <div class="form-group"><label>Theme Color</label><input type="text" id="set-themeColor"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Hero Title</label><input type="text" id="set-heroTitle"></div>
+              <div class="form-group"><label>Hero Subtitle</label><input type="text" id="set-heroSubtitle"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Offer Banner</label><input type="text" id="set-offerBanner"></div>
+              <div class="form-group"><label>Footer Information</label><input type="text" id="set-footerInformation"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Meta Title</label><input type="text" id="set-metaTitle"></div>
+              <div class="form-group"><label>Meta Description</label><input type="text" id="set-metaDescription"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Keywords</label><input type="text" id="set-keywords"></div>
+              <div class="form-group"><label>Google Search Console Verification</label><input type="text" id="set-googleSiteVerification"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Settings <i data-lucide="save"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-password">
+        <header class="topbar"><div><span class="section-kicker">Security</span><h2>Change Password</h2></div></header>
+        <div class="admin-form-card">
+          <form id="password-form" class="admin-form">
+            <div class="form-row">
+              <div class="form-group"><label>Current Password</label><input type="password" id="pwd-current" required></div>
+              <div class="form-group"><label>New Password</label><input type="password" id="pwd-new" required></div>
+              <div class="form-group"><label>Confirm Password</label><input type="password" id="pwd-confirm" required></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Change Password <i data-lucide="key-round"></i></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-analytics">
+        <header class="topbar">
+          <div><span class="section-kicker">Performance Center</span><h2>Analytics</h2></div>
+          <div class="topbar-actions">
+            <select id="analytics-range" class="filter-select">
+              <option value="today">Today</option>
+              <option value="7d">Last 7 Days</option>
+              <option value="30d">Last 30 Days</option>
+              <option value="all" selected>All Time</option>
+            </select>
+            <button id="export-requests-csv" class="btn btn-secondary"><i data-lucide="file-down"></i> CSV</button>
+            <button id="export-requests-excel" class="btn btn-secondary"><i data-lucide="sheet"></i> Excel</button>
+          </div>
+        </header>
+        <div class="admin-form-card">
+          <div id="analytics-content"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-activity">
+        <header class="topbar">
+          <div><span class="section-kicker">Audit Feed</span><h2>Activity Logs</h2></div>
+          <div class="topbar-actions">
+            <input type="text" id="activity-search" placeholder="Search activity" class="search-input">
+            <select id="activity-action-filter" class="filter-select"><option value="">All Actions</option></select>
+            <select id="activity-entity-filter" class="filter-select"><option value="">All Entities</option></select>
+          </div>
+        </header>
+        <div class="activity-timeline" id="activity-timeline">
+          <div class="empty-state">Activity logs will appear here.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+  <script src="script.js"></script>
+</body>
+</html>

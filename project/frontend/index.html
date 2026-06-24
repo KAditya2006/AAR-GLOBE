@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AAR GLOBE - Satighat's premier destination for expert mobile repairs, electronics accessories, and digital online services.">
+  <meta name="keywords" content="AAR GLOBE, mobile repair, accessories, digital services">
+  <meta name="google-site-verification" content="">
+  <title>AAR GLOBE | Mobile Repair & Digital Hub Satighat</title>
+  
+  <!-- Font and Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo site-logo" aria-label="AAR GLOBE home">
+        <img src="assets/aarglobe-logo.png" alt="AAR GLOBE Satighat logo">
+        <span data-setting="shopName">AAR GLOBE</span>
+      </a>
+      <nav class="nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#brands" class="nav-link">Brands</a>
+        <a href="#accessories" class="nav-link">Products</a>
+        <a href="#repairs" class="nav-link">Repairs</a>
+        <a href="#services" class="nav-link">Digital Services</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#repairs" class="btn btn-primary btn-sm header-cta">Book Repair</a>
+        <button class="mobile-nav-toggle" aria-label="Open navigation" aria-controls="mobile-nav" aria-expanded="false">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-nav-overlay" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav-content" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+      <button class="mobile-nav-close" aria-label="Close navigation">
+        <i data-lucide="x"></i>
+      </button>
+      <a href="#home" class="mobile-nav-link">Home</a>
+      <a href="#accessories" class="mobile-nav-link">Accessories Shop</a>
+      <a href="#repairs" class="mobile-nav-link">Mobile Repairs</a>
+      <a href="#services" class="mobile-nav-link">Digital Services</a>
+      <a href="#contact" class="mobile-nav-link">Contact Us</a>
+      <a href="#repairs" class="btn btn-primary mobile-cta">Book Repair</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+      </div>
+      <div class="hero-banner-slider" id="hero-banner-slider" aria-live="polite"></div>
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="badge-new">
+            <span class="pulse-dot"></span>
+            <span data-setting="offerBanner">Send requests directly to AAR GLOBE</span>
+          </div>
+          <h1 data-setting="heroTitle">Mobile Repair, Accessories & Digital Services</h1>
+          <p class="hero-lead" data-setting="heroSubtitle">Browse products and services, then send a request. We will contact you soon.</p>
+          <div class="hero-ctas">
+            <a href="#accessories" class="btn btn-primary btn-lg">Shop Accessories <i data-lucide="shopping-bag" class="icon-right"></i></a>
+            <a href="#repairs" class="btn btn-secondary btn-lg">Repair Mobile <i data-lucide="wrench" class="icon-right"></i></a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card-glow">
+            <div class="hub-visual-box">
+              <div class="visual-circle">
+                <i data-lucide="smartphone" class="visual-icon phone-icon"></i>
+                <i data-lucide="credit-card" class="visual-icon pay-icon"></i>
+                <i data-lucide="file-text" class="visual-icon doc-icon"></i>
+              </div>
+              <div class="inner-glowing-core"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section id="brands" class="section brands-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Brands</span>
+          <h2>Available Companies</h2>
+          <p>Companies and brands managed from the admin dashboard.</p>
+        </div>
+        <div class="grid grid-4" id="dynamic-brands-container">
+          <div class="loading-placeholder" style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--text-muted)">
+            <div class="spinner"></div>
+            <p style="margin-top:12px">Loading brands...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section id="accessories" class="section accessories-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Accessories Store</span>
+          <h2>Products By Company</h2>
+          <p>Products are grouped automatically by company.</p>
+        </div>
+        <div class="store-filter-panel" aria-label="Product filters">
+          <div class="filter-field">
+            <label for="product-search">Search Products</label>
+            <input type="search" id="product-search" placeholder="Search mobile, charger, cable...">
+          </div>
+          <div class="filter-field">
+            <label for="product-company-filter">Company</label>
+            <select id="product-company-filter">
+              <option value="">All Companies</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label for="product-category-filter">Category</label>
+            <select id="product-category-filter">
+              <option value="">All Categories</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-secondary filter-reset-btn" id="product-filter-reset">
+            Clear Filters
+          </button>
+        </div>
+        <div class="grid grid-4" id="dynamic-products-container">
+          <!-- Products will be loaded dynamically from the database -->
+          <div class="loading-placeholder" style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--text-muted)">
+            <div class="spinner"></div>
+            <p style="margin-top:12px">Loading products...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repairs Section -->
+    <section id="repairs" class="section repairs-section alternate-bg">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Repair Services</span>
+          <h2>Mobile Repair Services</h2>
+          <p>Get your smartphone fixed by certified experts with high-quality spare parts.</p>
+        </div>
+        <div class="store-filter-panel compact-filter-panel" aria-label="Repair service filters">
+          <div class="filter-field">
+            <label for="repair-search">Search Repairs</label>
+            <input type="search" id="repair-search" placeholder="Search screen, battery, charging...">
+          </div>
+          <button type="button" class="btn btn-secondary filter-reset-btn" id="repair-filter-reset">
+            Clear
+          </button>
+        </div>
+        <div class="grid grid-3" id="dynamic-repairs-container">
+          <!-- Repair services loaded dynamically -->
+          <div class="loading-placeholder" style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--text-muted)">
+            <div class="spinner"></div>
+            <p style="margin-top:12px">Loading repair services...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Online Services Section -->
+    <section id="services" class="section services-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Digital Hub</span>
+          <h2>Online Documentation & Bills</h2>
+          <p>Skip the queues! Apply online for documentation and bill payments instantly.</p>
+        </div>
+        <div class="store-filter-panel compact-filter-panel" aria-label="Digital service filters">
+          <div class="filter-field">
+            <label for="service-search">Search Digital Services</label>
+            <input type="search" id="service-search" placeholder="Search PAN, Aadhaar, bills...">
+          </div>
+          <button type="button" class="btn btn-secondary filter-reset-btn" id="service-filter-reset">
+            Clear
+          </button>
+        </div>
+        <div class="grid grid-3" id="dynamic-services-container">
+          <!-- Online services loaded dynamically -->
+          <div class="loading-placeholder" style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--text-muted)">
+            <div class="spinner"></div>
+            <p style="margin-top:12px">Loading digital services...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section alternate-bg">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Find Us</span>
+          <h2>Contact</h2>
+          <p data-setting="footerInformation">Send a request and we will contact you soon.</p>
+        </div>
+        <div class="contact-wrapper">
+          <div class="contact-info-panel">
+            <div class="info-card">
+              <div class="info-icon"><i data-lucide="map-pin"></i></div>
+              <div class="info-text">
+                <h4>Our Location</h4>
+                <p data-setting="address">Address will load from settings.</p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-icon"><i data-lucide="phone"></i></div>
+              <div class="info-text">
+                <h4>Call Us</h4>
+                <p><a href="#" id="contact-phone-link" data-setting="phoneNumber">Phone will load from settings.</a></p>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="info-icon"><i data-lucide="mail"></i></div>
+              <div class="info-text">
+                <h4>WhatsApp</h4>
+                <p><span id="contact-whatsapp" data-setting="whatsappNumber">WhatsApp will load from settings.</span></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-form-panel">
+            <h3>Quick Enquiry</h3>
+            <form id="enquiry-form" novalidate>
+              <div class="form-group">
+                <label for="enquiry-name">Your Name</label>
+                <input type="text" id="enquiry-name" placeholder="Enter your name" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="enquiry-phone">Phone Number</label>
+                <input type="tel" id="enquiry-phone" placeholder="Enter 10-digit number" pattern="[0-9]{10}" required inputmode="numeric" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label for="enquiry-message">What do you need?</label>
+                <textarea id="enquiry-message" rows="4" placeholder="Describe the item, repair, or digital service you require..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">Send Message <i data-lucide="send" class="icon-right"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <h3 data-setting="shopName">AAR GLOBE</h3>
+        <p data-setting="footerInformation">Your trusted mobile and digital service center.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#accessories">Accessories</a>
+        <a href="#repairs">Repairs</a>
+        <a href="#services">Digital Services</a>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 <span data-setting="shopName">AAR GLOBE</span>. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Request / Customer Details Modal -->
+  <div class="modal-overlay" id="request-modal" role="dialog" aria-modal="true" aria-labelledby="request-modal-title" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close modal">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-header">
+        <h3 id="request-modal-title">Send Request</h3>
+        <p>Please provide your contact details. The shop owner will contact you soon.</p>
+      </div>
+      <form id="request-form" novalidate>
+        <div class="modal-order-summary">
+          <div class="summary-row">
+            <span class="summary-label">Selected Item:</span>
+            <span class="summary-val" id="summary-item-name">-</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Category:</span>
+            <span class="summary-val capitalize" id="summary-item-type">-</span>
+          </div>
+          <div class="summary-row total-row">
+            <span class="summary-label">Estimated Amount:</span>
+            <span class="summary-val price" id="summary-item-price">₹0</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cust-name">Full Name</label>
+          <input type="text" id="cust-name" placeholder="Enter your full name" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="cust-phone">Mobile Number</label>
+          <div class="phone-input-wrap">
+            <span class="country-code">+91</span>
+            <input type="tel" id="cust-phone" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required inputmode="numeric" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cust-message">Message</label>
+          <textarea id="cust-message" rows="4" placeholder="Add any details, preferred time, model number, or question"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="pay-button">
+          Submit Request <i data-lucide="send" class="icon-right"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Product / Service Details Modal -->
+  <div class="modal-overlay" id="details-modal" role="dialog" aria-modal="true" aria-labelledby="details-modal-title" aria-hidden="true">
+    <div class="modal-card details-modal-card">
+      <button class="modal-close" id="details-modal-close-btn" aria-label="Close details">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="details-modal-body" id="details-modal-body">
+        <!-- Details are rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
